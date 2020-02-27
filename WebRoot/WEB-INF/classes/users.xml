@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<users>
-	<user username="admin" password="admin" nickname="admin" email="admin@qq.com" />
+
+<users> 
+  <user username="admin" password="admin" nickname="admin" email="admin@qq.com"/>  
+  <user username="duiyi" password="123" nickname="duiyizi" email="duiyi@qq.com"/>
 </users>

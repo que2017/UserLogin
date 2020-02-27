@@ -68,7 +68,7 @@ public class XmlUserDao {
 		}
 		Element root = dom.getRootElement();
 		// 利用XPATH表达式查找具有username和password属性值等于传入的用户名的元素
-		List<Element> list = root.selectNodes("//user[@username='" + username + "' and password='" + password + "']");
+		List<Element> list = root.selectNodes("//user[@username='" + username + "' and @password='" + password + "']");
 		if (list.size() > 0) {
 			return buildUserByElement(list.get(0));
 		} else {
