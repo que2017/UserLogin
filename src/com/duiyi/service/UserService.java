@@ -21,4 +21,15 @@ public class UserService {
 		// 2.如果用户名不存在，则调用dao中的方法添加用户名
 		dao.addUser(user);
 	}
+	
+	/**
+	 * 检查用户名密码是否正确
+	 *
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	public User isUserCorrect(String username, String password) {
+		return dao.findUserByUsernameAndPassword(username, password);
+	}
 }

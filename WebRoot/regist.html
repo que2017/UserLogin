@@ -1,0 +1,86 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>regist.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <style>
+    	.inputStyle span {
+    		width: 90px;
+    		height: 24px;
+    		font-size: 16px;
+    		text-align: center;
+    	}
+    	.inputStyle img {
+    		cursor: pointer;
+    	}
+    	#errorValue {
+    		color: red;
+    		display: none;
+    	}
+    </style>
+
+  </head>
+  
+  <body>
+  	<h1>对易的主页</h1>
+    <form id="registForm">
+    	<div id="errorValue"></div>
+    	<div class="inputStyle">
+    		<span>用户名：</span>
+    		<input type="text" name="username"></input>
+    	</div>
+    	<div class="inputStyle">
+    		<span>密码：</span>
+    		<input type="password" name="password"></input>
+    	</div>
+    	<div class="inputStyle">
+    		<span>确认密码：</span>
+    		<input type="password" name="passwordAgain"></input>
+    	</div>
+    	<div class="inputStyle">
+    		<span>昵称：</span>
+    		<input type="text" name="nickname"></input>
+    	</div><div class="inputStyle">
+    		<span>邮箱：</span>
+    		<input type="text" name="email"></input>
+    	</div>
+    	<div class="inputStyle">
+    		<span>验证码：</span>
+    		<input type="text" name="validateStr"></input>
+    	</div>
+    	<div class="inputStyle">
+    		<input type="button" value="提交" onclick="onSubmit()"></input>
+    		<img id="validateImg" src="servlet/ValidateImageServlet" onclick="changeImage(this)"></img>
+    	</div>
+    </form>
+    <script type="text/javascript">
+    	function changeImage(img) {
+    		img.src = "servlet/ValidateImageServlet?time=" + new Date().getTime();
+    	}
+    	function onSubmit() {
+    		var formData = new FormData(document.getElementById("registForm"));
+    		var xhr = new XMLHttpRequest();
+    		xhr.open("POST", "servlet/RegistServlet");
+    		var arr =[];
+    		for (var item of formData.entries()) {
+    			arr.push(encodeURIComponent(item[0]) + '=' + encodeURIComponent(item[1]));
+    		}
+    		console.log(arr.join('&'));
+    		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+    		xhr.send(arr.join('&'));
+    		xhr.onreadystatechange = function() {
+    			if (xhr.status == 200) {
+    				var errorValue = document.getElementById("errorValue");
+    				errorValue.innerHTML = xhr.responseText;
+    				errorValue.style.display = 'block';
+    			}
+   				changeImage(document.getElementById("validateImg"));
+    		};
+    	}
+    </script>
+  </body>
+</html>

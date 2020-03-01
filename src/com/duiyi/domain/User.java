@@ -1,6 +1,11 @@
 package com.duiyi.domain;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Map;
+
+import com.duiyi.exception.MsgException;
+import com.duiyi.util.StringUtil;
 
 public class User implements Serializable {
 	private String username;
@@ -23,6 +28,14 @@ public class User implements Serializable {
 		this.passwordAgain = passwordAgain;
 		this.nickname = nickname;
 		this.email = email;
+	}
+	
+	public User(Map<String, String[]> map) {
+		this.username = map.get("username")[0];
+		this.password = map.get("password")[0];
+		this.passwordAgain = map.get("passwordAgain")[0];
+		this.nickname = map.get("nickname")[0];
+		this.email = map.get("email")[0];
 	}
 	
 	public String getUsername() {
@@ -64,6 +77,35 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/**
+	 * 检查数据是否合法
+	 */
+	public void checkValue() throws MsgException {
+		if (StringUtil.isEmpty(username)) {
+			throw new MsgException("用户名不能为空！");
+		}
+		if (StringUtil.isEmpty(password)) {
+			throw new MsgException("密码不能为空！");
+		}
+		if (StringUtil.isEmpty(passwordAgain)) {
+			throw new MsgException("确认密码不能为空！");
+		}
+		if (!password.equals(passwordAgain)) {
+			throw new MsgException("两次密码不一致！");
+		}
+		if (StringUtil.isEmpty(nickname)) {
+			throw new MsgException("昵称不能为空！");
+		}
+		if (StringUtil.isEmpty(email)) {
+			throw new MsgException("邮箱不能为空！");
+		}
+		if (!email.matches("^\\w+@\\w+(\\.\\w+)+$")) {
+			throw new MsgException("邮箱格式不正确！");
+		}
+	}
+	
+	
 
 	@Override
 	public String toString() {
