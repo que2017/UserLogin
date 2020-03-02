@@ -62,6 +62,7 @@
     		img.src = "servlet/ValidateImageServlet?time=" + new Date().getTime();
     	}
     	function onSubmit() {
+   			changeImage(document.getElementById("validateImg"));
     		var formData = new FormData(document.getElementById("registForm"));
     		var xhr = new XMLHttpRequest();
     		xhr.open("POST", "servlet/RegistServlet");
@@ -75,10 +76,16 @@
     		xhr.onreadystatechange = function() {
     			if (xhr.status == 200) {
     				var errorValue = document.getElementById("errorValue");
-    				errorValue.innerHTML = xhr.responseText;
     				errorValue.style.display = 'block';
+    				if (xhr.responseText == 'registSucc') {
+    					errorValue.innerHTML = '恭喜您注册成功！！3秒后回主页。。。';
+    					setTimeout(function() {
+    						window.location.href = 'index.html';
+    					}, 3000);
+    				} else {
+    					errorValue.innerHTML = xhr.responseText;
+    				}
     			}
-   				changeImage(document.getElementById("validateImg"));
     		};
     	}
     </script>

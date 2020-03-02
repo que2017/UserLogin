@@ -36,8 +36,8 @@ public class RegistServlet extends HttpServlet {
 			// 4.登陆用户
 			request.getSession().setAttribute("user", user);
 			// 5.提示用户注册成功，3秒后回主页
-			response.getWriter().write("恭喜您注册成功！！3秒后回主页。。。");
-			response.setHeader("refresh", "3;url=" + request.getContextPath() + "/index.html");
+			response.getWriter().write("registSucc");
+//			response.setHeader("refresh", "3;url=" + request.getContextPath() + "/index.html");
 		} catch (MsgException e) {
 			response.getWriter().write(e.getMessage().toString());
 			return;
