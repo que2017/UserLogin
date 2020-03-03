@@ -16,6 +16,11 @@
     <servlet-name>RegistServlet</servlet-name>
     <servlet-class>com.duiyi.web.RegistServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>com.duiyi.web.LogoutServlet</servlet-class>
+  </servlet>
+
 
 
 
@@ -30,6 +35,10 @@
   <servlet-mapping>
     <servlet-name>RegistServlet</servlet-name>
     <url-pattern>/servlet/RegistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/servlet/LogoutServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

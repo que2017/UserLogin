@@ -24,7 +24,8 @@
     </div>
     <div id="logined">
     	欢迎回来！
-    	<a href="logout.html">注销</a>
+    	<span id="username"></span>
+    	<a href="servlet/LogoutServlet">注销</a>
     </div>
 	<script type="text/javascript">
 		var xhr = new XMLHttpRequest();
@@ -33,9 +34,10 @@
 		xhr.onreadystatechange = function () {
 			console.log("state change: " + xhr.status);
 			if (xhr.readyState == 4 && xhr.status == 200) {
-				if (xhr.responseText == '') {
+				if (xhr.responseText == null || xhr.responseText == '') {
 					document.getElementById("unlogined").style.display = "block";
 				} else {
+					document.getElementById("username").innerHTML = xhr.responseText;
 					document.getElementById("logined").style.display = "block";
 				}
 			}
