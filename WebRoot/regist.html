@@ -9,17 +9,19 @@
     
     <style>
     	.inputStyle span {
+    		display: inline-block;
     		width: 90px;
     		height: 24px;
     		font-size: 16px;
     		text-align: center;
     	}
     	.inputStyle img {
+    		display: inline-block;
+    		margin: 0 0 0 48px
     		cursor: pointer;
     	}
     	#errorValue {
     		color: red;
-    		display: none;
     	}
     </style>
 
@@ -62,21 +64,19 @@
     		img.src = "servlet/ValidateImageServlet?time=" + new Date().getTime();
     	}
     	function onSubmit() {
-   			changeImage(document.getElementById("validateImg"));
     		var formData = new FormData(document.getElementById("registForm"));
     		var xhr = new XMLHttpRequest();
     		xhr.open("POST", "servlet/RegistServlet");
-    		var arr =[];
+    		var arr = [];
     		for (var item of formData.entries()) {
     			arr.push(encodeURIComponent(item[0]) + '=' + encodeURIComponent(item[1]));
     		}
-    		console.log(arr.join('&'));
+    		// console.log(arr.join('&'));
     		xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
     		xhr.send(arr.join('&'));
     		xhr.onreadystatechange = function() {
     			if (xhr.status == 200) {
     				var errorValue = document.getElementById("errorValue");
-    				errorValue.style.display = 'block';
     				if (xhr.responseText == 'registSucc') {
     					errorValue.innerHTML = '恭喜您注册成功！！3秒后回主页。。。';
     					setTimeout(function() {
@@ -84,7 +84,10 @@
     					}, 3000);
     				} else {
     					errorValue.innerHTML = xhr.responseText;
+  						changeImage(document.getElementById("validateImg"));
     				}
+    			} else {	
+   					changeImage(document.getElementById("validateImg"));
     			}
     		};
     	}

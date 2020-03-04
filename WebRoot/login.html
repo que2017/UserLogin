@@ -6,12 +6,83 @@
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="this is my page">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    
-    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
 
+	<style>
+		#errorValue {
+			color: red;
+		}
+		.inputStyle span {
+			display: inline-block;
+			width: 90px;
+			height: 24px;
+			font-size: 16px;
+			text-align: center;
+		}
+	</style>
+	
   </head>
   
   <body>
-    登陆页面
+    <h1>对易得主页</h1>
+    <form id="loginForm">
+    	<div id="errorValue"></div>
+    	<div class="inputStyle">
+    		<span>用户名：</span>
+    		<input id="inputUsername" type="text" name="username"></input>
+    	</div>
+    	<div class="inputStyle">
+    		<span>密码：</span>
+    		<input type="password" name="password"></input>
+    	</div>
+    	<div>
+    		<input type="button" value="登录" onclick="onSubmit()"></input>
+    		<input id="inputCheckbox" type="checkbox" name="remberUser" value="ok" />记住用户名
+    	</div>
+    </form>
+    <script type="text/javascript">
+    	(function(){
+    		var cookies = document.cookie.split(';');
+    		var remberUser;
+    		for(var item of cookies) {
+    			var arr = item.split('=');
+    			if (arr[0] == "remberUser") {
+    				remberUser = arr[1];
+    				break;
+    			}
+    		}
+    		var username = document.getElementById("inputUsername");
+    		var checkbox = document.getElementById("inputCheckbox");
+    		if (remberUser) {
+    			username.value = decodeURIComponent(remberUser);
+    			checkbox.checked = true;
+    		} else {
+    			username.value = "";
+    			checkbox.checked = false;
+    		}
+    	})();
+    	function onSubmit(){
+	    	var formData = new FormData(document.getElementById("loginForm"));
+	    	var arr = [];
+    		for (var item of formData.entries()) {
+    			arr.push(encodeURIComponent(item[0]) + '=' + encodeURIComponent(item[1]));
+    		}
+	    	// console.log(arr.join('&'));
+	    	var xhr = new XMLHttpRequest();
+	    	xhr.open("POST", "servlet/LoginServlet");
+	    	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
+	    	xhr.send(arr.join('&'));
+	    	var errorValue = document.getElementById("errorValue");
+	    	xhr.onreadystatechange = function() {
+	    		if (xhr.status == 200) {
+	    			if (xhr.responseText == "correct") {
+	    				errorValue.innerHTML = '';
+	    				window.location.href = "index.html";
+	    			} else {
+	    				errorValue.innerHTML = "用户名或密码错误！";
+	    			}
+	    		}
+	    	}
+    	}
+    </script>
   </body>
 </html>
