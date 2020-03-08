@@ -8,6 +8,8 @@ import com.duiyi.exception.MsgException;
 import com.duiyi.util.StringUtil;
 
 public class User implements Serializable {
+	private int id;
+	
 	private String username;
 	
 	private String password;
@@ -21,8 +23,21 @@ public class User implements Serializable {
 	public User() {
 		this(null, null, null, null, null);
 	}
-
+	
+	public User(String username, String password, String nickname, String email) {
+		this(-1, username, password, "", nickname, email);
+	}
+	
+	public User(int id, String username, String password, String nickname, String email) {
+		this(id, username, password, "", nickname, email);
+	}
+	
 	public User(String username, String password, String passwordAgain, String nickname, String email) {
+		this(-1, username, password, passwordAgain, nickname, email);
+	}
+
+	public User(int id, String username, String password, String passwordAgain, String nickname, String email) {
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.passwordAgain = passwordAgain;
@@ -36,6 +51,14 @@ public class User implements Serializable {
 		this.passwordAgain = map.get("passwordAgain")[0];
 		this.nickname = map.get("nickname")[0];
 		this.email = map.get("email")[0];
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getUsername() {
@@ -109,7 +132,8 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "username:" + username
+		return "id:" + id
+			+ "username:" + username
 			+ "\npassword:" + password
 			+ "\npasswordAgain:" + passwordAgain
 			+ "\nnickname:" + nickname

@@ -9,13 +9,8 @@ import org.dom4j.Element;
 import com.duiyi.domain.User;
 import com.duiyi.util.XmlDaoUtil;
 
-public class XmlUserDao {
-	/**
-	 * 通过用户名查找用户
-	 *
-	 * @param username 用户名
-	 * @return User 用户
-	 */
+public class XmlUserDao implements UserDao {
+	
 	public User findUserByUsername(String username) {
 		Document dom = XmlDaoUtil.getDom();
 		if (dom == null) {
@@ -31,11 +26,6 @@ public class XmlUserDao {
 		}
 	}
 	
-	/**
-	 * 添加用户
-	 *
-	 * @param user 用户
-	 */
 	public void addUser(User user) {
 		Document dom = XmlDaoUtil.getDom();
 		if (dom == null) {
@@ -53,14 +43,7 @@ public class XmlUserDao {
 		// 回写到xml文件中
 		XmlDaoUtil.refreshXml();
 	}
-	
-	/**
-	 * 通过用户名和密码查找用户
-	 *
-	 * @param username 用户名
-	 * @param password 密码
-	 * @return User 用户
-	 */
+
 	public User findUserByUsernameAndPassword(String username, String password) {
 		Document dom = XmlDaoUtil.getDom();
 		if (dom == null) {

@@ -1,11 +1,12 @@
 package com.duiyi.service;
 
-import com.duiyi.dao.XmlUserDao;
+import com.duiyi.dao.UserDao;
 import com.duiyi.domain.User;
 import com.duiyi.exception.MsgException;
+import com.duiyi.factory.DaoFactory;
 
 public class UserService {
-	private XmlUserDao dao = new XmlUserDao();
+	private UserDao dao = DaoFactory.getFactory().getUserDao();
 	
 	/**
 	 * ×¢²áÓÃ»§
