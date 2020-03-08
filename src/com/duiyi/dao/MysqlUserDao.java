@@ -58,7 +58,6 @@ public class MysqlUserDao implements UserDao {
 								resultSet.getString("password"),
 								resultSet.getString("nickname"),
 								resultSet.getString("email"));
-				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
